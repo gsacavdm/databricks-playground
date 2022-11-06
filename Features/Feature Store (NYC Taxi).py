@@ -6,19 +6,6 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Inputs
-
-# COMMAND ----------
-
-dbutils.widgets.combobox(name='first_time_execution', choices=['No', 'Yes'], defaultValue='No', label='Is First Run (Create Tables for the First Time)')
-
-# COMMAND ----------
-
-first_time_execution = dbutils.widgets.get('first_time_execution')
-
-# COMMAND ----------
-
-# MAGIC %md
 # MAGIC ## Imports
 
 # COMMAND ----------
@@ -193,29 +180,35 @@ spark.conf.set('spark.sql.shuffle.partitions', '5')
 
 # COMMAND ----------
 
-if (first_time_execution == 'Yes'):
-    fs.create_table(
-        name='feature_store_taxi.trip_pickup_features',
-        primary_keys=['zip', 'ts'],
-        df=pickup_features,
-        partition_columns='yyyy_mm',
-        description='Taxi Fares. Pickup Features',
+try:
+  fs.get_table('feature_store_taxi.trip_pickup_features')
+except ValueError:
+  print('Table does not exist, creating...')
+  fs.create_table(
+    name='feature_store_taxi.trip_pickup_features',
+    primary_keys=['zip', 'ts'],
+    df=pickup_features,
+    partition_columns='yyyy_mm',
+    description='Taxi Fares. Pickup Features',
     )
 else:
-    print('Not first run, skipping table creation')
+    print('Table exists')
 
 # COMMAND ----------
 
-if (first_time_execution == 'Yes'):
-    fs.create_table(
-        name='feature_store_taxi.trip_dropoff_features',
-        primary_keys=['zip', 'ts'],
-        df=dropoff_features,
-        partition_columns='yyyy_mm',
-        description='Taxi Fares. Dropoff Features',
-    )
+try:
+  fs.get_table('feature_store_taxi.trip_pickup_features')
+except ValueError:
+  print('Table does not exist, creating...')
+  fs.create_table(
+      name='feature_store_taxi.trip_dropoff_features',
+      primary_keys=['zip', 'ts'],
+      df=dropoff_features,
+      partition_columns='yyyy_mm',
+      description='Taxi Fares. Dropoff Features',
+  )
 else:
-    print('Not first run, skipping table creation')
+    print('Table exists')
 
 # COMMAND ----------
 
