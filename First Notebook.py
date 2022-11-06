@@ -1,38 +1,15 @@
 # Databricks notebook source
 # MAGIC %md
+# MAGIC # Hello World
 # MAGIC This is my first notebook
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC Now an edit
+print('Hello World!')
 
 # COMMAND ----------
 
-import os
-
-from pyspark.sql.functions import *
+display(spark.range(1,10))
 
 # COMMAND ----------
-
-df = spark.read.csv(f'file://{os.getcwd()}/random-files/simple.csv', header=True)
-
-# COMMAND ----------
-
-display(df)
-
-# COMMAND ----------
-
-img = spark.read.format('image').load(f'file://{os.getcwd()}/random-files/serious-image.png')
-
-# COMMAND ----------
-
-display(img)
-
-# COMMAND ----------
-
-os.listdir('random-files')
-
-# COMMAND ----------
-
 
