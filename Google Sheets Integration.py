@@ -17,6 +17,7 @@
 import os.path
 
 import json
+import datetime
 
 from google.auth.transport.requests import Request
 from google.oauth2 import service_account
@@ -50,7 +51,7 @@ CELL_WRITE = dbutils.widgets.get('cellWrite')
 
 # COMMAND ----------
 
-service_account_bytes = dbutils.secrets.getBytes('gcp-integration','gcp-sa-json')
+service_account_bytes = dbutils.secrets.getBytes('gcp-integration','gcp-service-account-json')
 
 # COMMAND ----------
 
@@ -116,7 +117,7 @@ sheet.values().update(
     spreadsheetId = SHEET_ID,
     range=CELL_WRITE,
     valueInputOption='RAW',
-    body={'range': CELL_WRITE, 'values': [['Hello from Databricks']]}).execute()
+    body={'range': CELL_WRITE, 'values': [[f"Hello from Databricks at {datetime.date.today()}"]]}).execute()
 
 # COMMAND ----------
 
