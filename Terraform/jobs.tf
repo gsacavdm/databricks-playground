@@ -27,7 +27,7 @@ resource "databricks_job" "feature_store_nyc_taxi" {
   name                = "Feature Store - NYC Taxi"
   max_concurrent_runs = 1
   git_source {
-    url      = "https://github.com/gsacavdm/databricks-playground.git"
+    url      = "https://github.com/gsacavdm/databricks-playground"
     provider = "gitHub"
     branch   = "master"
   }
