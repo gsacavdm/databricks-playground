@@ -117,7 +117,7 @@ sheet.values().update(
     spreadsheetId = SHEET_ID,
     range=CELL_WRITE,
     valueInputOption='RAW',
-    body={'range': CELL_WRITE, 'values': [[f"Hello from Databricks at {datetime.date.today()}"]]}).execute()
+    body={'range': CELL_WRITE, 'values': [[f"Hello from Databricks at {datetime.datetime.today()}"]]}).execute()
 
 # COMMAND ----------
 
