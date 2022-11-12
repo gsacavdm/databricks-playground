@@ -18,6 +18,8 @@ resource "databricks_job" "feature_store_nyc_taxi" {
       data_security_mode = "SINGLE_USER"
     }
     email_notifications {
+      on_failure                = [data.databricks_current_user.me.user_name]
+      no_alert_for_skipped_runs = true
     }
   }
   schedule {
